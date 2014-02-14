@@ -1,6 +1,6 @@
 App = Ember.Application.create({});
 
-var posts = [{
+var items = [{
   id: '1',
   title: "Rails is Omakase",
   author: { name: "d2h" },
@@ -17,25 +17,26 @@ var posts = [{
 }];
 
 App.Router.map(function() {
+  // this.resource('index');
   this.resource('about');
-  this.resource('posts', function() {
-    this.resource('post', { path: ':post_id' });
+  this.resource('items', function() {
+    this.resource('item', { path: ':item_id' });
   });
 });
 
-App.PostsRoute = Ember.Route.extend({
+App.ItemsRoute = Ember.Route.extend({
   model: function() {
-    return posts;
+    return items;
   }
 });
 
-App.PostRoute = Ember.Route.extend({
+App.ItemRoute = Ember.Route.extend({
   model: function(params) {
-    return posts.findBy('id', params.post_id);
+    return items.findBy('id', params.post_id);
   }
 });
 
-App.PostController = Ember.ObjectController.extend({
+App.ItemController = Ember.ObjectController.extend({
   isEditing: false,
 
   edit: function() {
@@ -47,14 +48,14 @@ App.PostController = Ember.ObjectController.extend({
     this.get('store').commit();
   }
 });
-App.SearchRoute = Ember.Route.extend({
+App.IndexRoute = Ember.Route.extend({
   model: function(params) {
-    return posts.findBy('title', params.search);
+    return items.findBy('title', params.search);
   }
 });
-App.SearchController = Ember.ObjectController.extend({
+App.IndexController = Ember.ObjectController.extend({
   search: function(params) {
-    return posts.findBy('title', params.search);
+    return items.findBy('title', params.search);
   }
 });
 var showdown = new Showdown.converter();
