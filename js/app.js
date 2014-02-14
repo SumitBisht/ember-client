@@ -2,18 +2,18 @@ App = Ember.Application.create({});
 
 var items = [{
   id: '1',
-  title: "Rails is Omakase",
-  author: { name: "d2h" },
-  date: new Date('12-27-2012'),
-  excerpt: "There are lots of à la carte software environments in this world. Places where in order to eat, you must first carefully look over the menu of options to order exactly what you want.",
-  body: "I want this for my ORM, I want that for my template language, and let's finish it off with this routing library. Of course, you're going to have to know what you want, and you'll rarely have your horizon expanded if you always order the same thing, but there it is. It's a very popular way of consuming software.\n\nRails is not that. Rails is omakase."
+  title: "Ember Application Development",
+  author: { name: "stryker" },
+  date: new Date('01-27-2014'),
+  excerpt: "Ember.js is an opinionated framework, similar to rails",
+  body: "I want this for my ORM, I want that for my template language, and let's finish it off with this routing library. Of course, you're going to have to know what you want, and you'll rarely have your horizon expanded if you always order the same thing, but there it is. It's a very popular way of consuming software.\n\nEmber is not that."
 }, {
   id: '2',
-  title: "The Parley Letter",
-  author: { name: "d2h" },
-  date: new Date('12-24-2012'),
-  excerpt: "My [appearance on the Ruby Rogues podcast](http://rubyrogues.com/056-rr-david-heinemeier-hansson/) recently came up for discussion again on the private Parley mailing list.",
-  body: "A long list of topics were raised and I took a time to ramble at large about all of them at once. Apologies for not taking the time to be more succinct, but at least each topic has a header so you can skip stuff you don't care about.\n\n### Maintainability\n\nIt's simply not true to say that I don't care about maintainability. I still work on the oldest Rails app in the world."  
+  title: "The Ember Developer",
+  author: { name: "tron" },
+  date: new Date('12-24-2013'),
+  excerpt: "As a developer having wide variety of interest, Ember should make you feel right at home",
+  body: "this text along with its source code should help you transition to the next level"  
 }];
 
 App.Router.map(function() {
@@ -48,14 +48,28 @@ App.ItemController = Ember.ObjectController.extend({
     this.get('store').commit();
   }
 });
-App.IndexRoute = Ember.Route.extend({
-  model: function(params) {
-    return items.findBy('title', params.search);
-  }
-});
-App.IndexController = Ember.ObjectController.extend({
-  search: function(params) {
-    return items.findBy('title', params.search);
+// App.IndexRoute = Ember.Route.extend({
+//   model: function(params) {
+//     return items.findBy('title', params.search);
+//   }
+// });
+App.IndexController = Ember.ArrayController.extend({
+  results: function(params) {
+    console.log(params+' searching from results function in IndexController');
+    var result = []
+    result.push(items.findBy('id', params));
+    result = items[1];
+    console.log(result.title);
+    return result;
+  },
+  actions:{
+     query: function(params) {
+      console.log(params+' searching for results from the action');
+      var result = items.findBy('id', params);
+      result = items[1];
+      console.log(result.title);
+      return result;
+    }
   }
 });
 var showdown = new Showdown.converter();

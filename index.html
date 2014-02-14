@@ -33,7 +33,7 @@
             </thead>
             {{#each model}}
             <tr><td>
-                {{#link-to 'item' this}}{{title}} <small class='muted'>by {{author.name}}</small>{{/link-to}}
+              {{#link-to 'item' this}}{{title}} <small class='muted'>by {{author.name}}</small>{{/link-to}}
             </td></tr>
             {{/each}}
           </table>
@@ -84,12 +84,12 @@
     </div>
   </script>
 
-
   <script type="text/x-handlebars" id="index">
     <div class='index'>
-      <p>{{input type="text" value="search" placeholder="Search by Title" action="query"}}</p>
+      <p>{{input type="text" value="search" placeholder="Search by Title" action="results"}}</p>
     </div>
     <div class='result'>
+      <p>Results:</p>
       <ul>
       {{#each model}}
         <li>{{#link-to 'item' this}}{{title}} <small class='muted'>by {{author.name}}</small>{{/link-to}}</li>
