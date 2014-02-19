@@ -48,26 +48,24 @@ App.ItemController = Ember.ObjectController.extend({
     this.get('store').commit();
   }
 });
+
 // App.IndexRoute = Ember.Route.extend({
 //   model: function(params) {
 //     return items.findBy('title', params.search);
 //   }
 // });
 App.IndexController = Ember.ArrayController.extend({
-  results: function(params) {
-    console.log(params+' searching from results function in IndexController');
-    var result = []
-    result.push(items.findBy('id', params));
-    result = items[1];
-    console.log(result.title);
-    return result;
-  },
+
   actions:{
-     query: function(params) {
-      console.log(params+' searching for results from the action');
-      var result = items.findBy('id', params);
-      result = items[1];
-      console.log(result.title);
+     results: function(params) {
+      console.log('searching results from action for: ' + params);
+      var result = [];
+      items.map(function(item){
+        if(item.title.indexOf(params)!=-1){
+          result.push(item);
+        }
+      });
+      console.log(result.length);
       return result;
     }
   }
